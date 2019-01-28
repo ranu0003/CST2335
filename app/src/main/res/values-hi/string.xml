@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_message">Hello</string>
+    <string name= "app_name">Android Labs</string>
+    <string name="widgets">यहाँ मेरे विजेट हैं:</string>
+    <string name ="Widgets2">बटन</string>
+    <string name="widgets3">इसकी जांच करें!</string>
+    <string name="widgets4">चालू करना / बंद करना</string>
+    <string name="widgets5">पाठ व्यक्ति का नाम</string>
+</resources>

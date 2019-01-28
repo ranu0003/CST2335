@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="hello_message">Hello</string>
+   <string name= "app_name">Android Labs</string>
+   <string name="widgets">Here are my widgets:</string>
+   <string name ="Widgets2">Button</string>
+   <string name="widgets3">Check this out!</string>
+   <string name="widgets4">Switch on/off</string>
+   <string name="widgets5">textPersonName</string>
+</resources>
