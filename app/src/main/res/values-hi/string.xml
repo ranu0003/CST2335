@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">AndroidLabs</string>
     <string name="hello_message">Hello</string>
-    <string name= "app_name">Android Labs</string>
+
     <string name="widgets">यहाँ मेरे विजेट हैं:</string>
     <string name ="Widgets2">बटन</string>
     <string name="widgets3">इसकी जांच करें!</string>
     <string name="widgets4">चालू करना / बंद करना</string>
     <string name="widgets5">पाठ व्यक्ति का नाम</string>
+    <string name="hello_Message">नमस्ते दुनिया!!!</string>
+    <!--string name="ButtonText">मैं एक बटन हूँ</string-->
+    <string name="StringText">यहाँ मेरे विजेट हैं</string>
+    <string name="ButtonText">बटन</string>
+    <string name="Checkbox">इसकी जांच करें</string>
+    <string name="SwitchText">चालू करना / बंद करना</string>
+    <string name="editText">अपना उत्तर यहां लिखें</string>
+    <string name="textView1">अपना ईमेल पता दर्ज करें:</string>
+    <string name="textView2">अपना पासवर्ड लिखें:</string>
+    <string name="editView1">यहां ईमेल टाइप करें</string>
+    <string name="button1">लॉग इन करें</string>
+    <string name="pfText1">आपकी रूपरेखा</string>
+    <string name="pfText2">आपका नाम:</string>
+    <string name="pfText3">तुम्हारा ईमेल:</string>
+    <string name="pfText4">आपकी तस्वीर:</string>
+    <string name="pfText5">तस्वीर लेने के लिए ऊपर दिए गए बटन पर क्लिक करें</string>
+    <string name="pfEdit1">अपना नाम दर्ज करें</string>
+    <string name="pfEdit2">अपना ईमेल दर्ज करें</string>
 </resources>

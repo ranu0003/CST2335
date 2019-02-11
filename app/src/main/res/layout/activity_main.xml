@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:text="@string/hello_message"
+    android:text="@string/hello_Message"
     android:orientation="vertical">
 
 
@@ -14,11 +14,11 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_message" />
+        android:text="@string/hello_Message" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Widgets2" />
+        android:text="@string/ButtonText" />
 </LinearLayout>
