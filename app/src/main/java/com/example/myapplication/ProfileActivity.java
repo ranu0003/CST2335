@@ -24,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.profileactivity);
 
         Intent login = getIntent();
-        String msg=login.getStringExtra("defaultEmail");
+        String msg=login.getStringExtra( "defaultEmail");
         text=findViewById(R.id.email);
         text.setText(msg);
 

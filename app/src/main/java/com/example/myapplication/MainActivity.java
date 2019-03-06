@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
+
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -18,18 +20,28 @@ import com.example.myapplication.ProfileActivity;
 public class MainActivity extends Activity {
 
     EditText editText1;
+
     Button loginButton;
+
+    Button login;
+
     String email;
     SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lab3);
+
         editText1 = findViewById(R.id.editText1);
+
+
+        editText1 =(EditText) findViewById(R.id.editText1);
+        login = (Button) findViewById(R.id.loginButton);
 
         prefs = getSharedPreferences("name", Context.MODE_PRIVATE);
         String userName = prefs.getString("defaultEmail","");
         editText1.setText(userName);
+
 
         loginButton = (Button)findViewById(R.id.loginButton);
 
@@ -42,6 +54,14 @@ public class MainActivity extends Activity {
                 startActivity(it);
             }
         });
+
+        login.setOnClickListener((v) ->{
+            Intent it = new Intent(getApplicationContext(),ProfileActivity.class);
+            it.putExtra("defaultEmail",editText1.getText().toString());
+            startActivity(it);
+        });
+
+
     }
 
     @Override
