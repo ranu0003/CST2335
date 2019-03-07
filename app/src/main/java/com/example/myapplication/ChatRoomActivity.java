@@ -1,20 +1,19 @@
 package com.example.myapplication;
-
-
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,93 +25,145 @@ public class ChatRoomActivity extends AppCompatActivity {
     List<Message> msgList = new ArrayList<>();
     Button btnSend;
     Button btnReceive;
-
+    DatabaseClass databaseHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
+
         lv = (ListView)findViewById(R.id.lstView);
         et = (EditText)findViewById(R.id.chatEditText);
         btnSend = (Button)findViewById(R.id.SendBtn);
         btnReceive = (Button)findViewById(R.id.ReceiveBtn);
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        databaseHelp = new DatabaseClass(this);
 
-                String sendMessage = et.getText().toString();
-                if ( !sendMessage.equals("")){
-                    Message model = new Message(sendMessage, true);
-                    msgList.add(model);
 
-                    ChatAdapter adt = new ChatAdapter(msgList, getApplicationContext());
-                    lv.setAdapter(adt);
-                    et.setText("");
-                }
-            }
-        });
+
+
+        final ChatAdapter messageAdapter = new ChatAdapter(msgList, this);
+        lv.setAdapter(messageAdapter);
 
         btnReceive.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
 
-                String sendMessage = et.getText().toString();
-                if ( !sendMessage.equals("")){
-                    Message model = new Message(sendMessage, false);
-                    msgList.add(model);
 
-                    ChatAdapter adt = new ChatAdapter(msgList, getApplicationContext());
-                    lv.setAdapter(adt);
+
+                if (!et.getText().toString().equals("")) {
+
+                    databaseHelp.insertData(et.getText().toString(), true);
+
                     et.setText("");
+
+                    msgList.clear();
+
+                    viewData();
                 }
             }
         });
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (!et.getText().toString().equals("")) {
+
+                    databaseHelp.insertData(et.getText().toString(), false);
+
+                    et.setText("");
+
+                    msgList.clear();
+
+                    viewData();
+                }
+
+            }});
+        viewData();
+
+        Log.e("ChatRoomActivity","onCreate");
     }
-}
+    private void viewData(){
 
-class ChatAdapter extends BaseAdapter{
+        Cursor cursor = databaseHelp.viewData();
 
-    private List<Message> messageModels;
-    private Context context;
-    private LayoutInflater inflater;
+        if (cursor.getCount() != 0){
 
-    public ChatAdapter(List<Message> messageModels, Context context) {
-        this.messageModels = messageModels;
-        this.context = context;
-        this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
+            while (cursor.moveToNext()){
 
-    @Override
-    public int getCount() {
-        return messageModels.size();
-    }
+                Message msg = new Message(cursor.getString(1), cursor.getInt(2) == 0);
 
-    @Override
-    public Object getItem(int position) {
-        return messageModels.get(position);
-    }
+                msgList.add(msg);
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+                ChatAdapter chatAdapter = new ChatAdapter(msgList, getApplicationContext());
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
+                lv.setAdapter(chatAdapter);
 
-        if (view == null){
-            if (messageModels.get(position).isSend()){
-                view = inflater.inflate(R.layout.send, null);
-
-            }else {
-                view = inflater.inflate(R.layout.receive, null);
             }
-            TextView messageText = (TextView)view.findViewById(R.id.messageText);
-            messageText.setText(messageModels.get(position).getMsg());
+
         }
-        return view;
+
+    }
+
+
+    public class ChatAdapter extends BaseAdapter {
+        List<Message>msg;
+        Context ctx;
+        LayoutInflater inflater;
+
+
+        public ChatAdapter(List<Message>msg, Context ctx) {
+            this.ctx=ctx;
+            this.msg=msg;
+            this.inflater=(LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return msg.size();
+        }
+
+
+
+        @Override
+        public Message getItem(int position) {
+            return  msg.get(position);
+        }
+
+
+        @Override
+        public long getItemId(int position) {
+            return (long)position;
+        }
+
+
+        @Override
+        public View getView(int position,  View convertView,  ViewGroup parent) {
+
+
+
+            View result = convertView ;
+
+            if(msg.get(position).isSend()){
+
+                result = inflater.inflate(R.layout.send,null);
+
+            }
+            else { result=inflater.inflate(R.layout.receive,null);
+
+
+            }
+
+
+            TextView message = result.findViewById(R.id.messageText);
+            message.setText(msg.get(position).getMsg()); // get the string at position
+
+
+            return result;
+
+        }
     }
 }
