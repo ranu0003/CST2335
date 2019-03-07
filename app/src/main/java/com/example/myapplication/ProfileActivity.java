@@ -17,6 +17,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     ImageButton mImageButton;
     Button chatButton;
+    EditText text;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public static final String ACTIVITY_NAME = "PROFILE_ACTIVITY";
@@ -26,6 +27,11 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.profileactivity);
 
         Intent login = getIntent();
+        String msg=login.getStringExtra("defaultEmail");
+        text=findViewById(R.id.email);
+        text.setText(msg);
+
+
 
         mImageButton = (ImageButton) findViewById(R.id.profileImageButton);
 
